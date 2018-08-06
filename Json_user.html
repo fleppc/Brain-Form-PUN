@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Json Cide Car</title>
+    <style>
+      body {
+        background-color: lightblue;
+      }
+      #CreatsFile {
+        height: 75px;
+        width: 150px;
+        font-size: 23px;
+      }
+      #upDatePage {
+        position: relative;
+        bottom: 30px;
+      }
+      span.description {
+        color: purple;
+        font-size: 12px;
+      }
+    </style>
+    <script src="Json_user.js"></script>
+  </head>
+  <body>
+    <h1>Brain Scan Form</h1>
+    <h3>please fill out the required areas</h3>
+
+    <form id="theForm">
+      Please select a configFile: <input type="file" id="fileInput"><br>
+    </form>
+
+    <button id="CreatsFile" onclick="getVal()">Create File</button>
+  </body>
+</html>

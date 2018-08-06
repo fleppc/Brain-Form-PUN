@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Json Cide Car</title>
+    <style>
+      body {
+        background-color: lightblue;
+      }
+      #getFileBTN {
+        height: 100px;
+        width: 200px;
+        font-size: 30px;
+      }
+    </style>
+    <script src="Json_admin.js"></script>
+  </head>
+  <body>
+    <h1>Brain Scan Form</h1>
+    <h3>please fill out the required areas</h3>
+    <div>
+    <form id="theForm">
+      Please select a configFile: <input type="file" id="fileInput"><br>
+      <input type="button" id="upDatePage" value="Up Date Page" onclick="handleFileSelect();"><br>
+
+      <!-- <input type="checkbox" id="TaskNameCheckbox" onclick="check_box('TaskName');">       TaskName<input type="text" id="TaskName"><br>
+      <input type="checkbox" id="OnsetOfStimulisCheckbox" onclick="check_box('OnsetOfStimulis');">       OnsetOfStimulis<input type="text" id="OnsetOfStimulis"><br>
+      <input type="checkbox" id="StimulusDurationCheckbox" onclick="check_box('StimulusDuration');">       StimulusDuration<input type="text" id="StimulusDuration"><br>
+      <input type="checkbox" id="ManufacturerCheckbox" onclick="check_box('Manufacturer');">       Manufacturer<input type="text" id="Manufacturer"><br>
+      <input type="checkbox" id="ManufacturersModelNameCheckbox" onclick="check_box('ManufacturersModelName');">       ManufacturersModelName<input type="text" id="ManufacturersModelName"><br>
+      <input type="checkbox" id="EchoTrainLengthCheckbox" onclick="check_box('EchoTrainLength');">       EchoTrainLength<input type="text" id="EchoTrainLength"><br>
+      <input type="checkbox" id="AcquisitionNumberCheckbox" onclick="check_box('AcquisitionNumber');">       AcquisitionNumber<input type="text" id="AcquisitionNumber"><br>
+      <input type="checkbox" id="MagneticFieldStrengthCheckbox" onclick="check_box('MagneticFieldStrength');">       MagneticFieldStrength<input type="text" id="MagneticFieldStrength"><br>
+      <input type="checkbox" id="FlipAngleCheckbox" onclick="check_box('FlipAngle');">       FlipAngle<input type="text" id="FlipAngle"><br>
+      <input type="checkbox" id="EchoTimeCheckbox" onclick="check_box('EchoTime');">       EchoTime<input type="text" id="EchoTime"><br>
+      <input type="checkbox" id="RepetitionTimeCheckbox" onclick="check_box('RepetitionTime');">       RepetitionTime<input type="text" id="RepetitionTime"><br>
+      <input type="checkbox" id="PhaseEncodingLinesCheckbox" onclick="check_box('PhaseEncodingLines');">       PhaseEncodingLines<input type="text" id="PhaseEncodingLines"><br>
+      <input type="checkbox" id="BandwidthPerPixelPhaseEncodeCheckbox" onclick="check_box('BandwidthPerPixelPhaseEncode');">       BandwidthPerPixelPhaseEncode<input type="text" id="BandwidthPerPixelPhaseEncode"><br>
+      <input type="checkbox" id="EffectiveEchoSpacingCheckbox" onclick="check_box('EffectiveEchoSpacing');">       EffectiveEchoSpacing<input type="text" id="EffectiveEchoSpacing"><br>
+      <input type="checkbox" id="TotalReadoutTimeCheckbox" onclick="check_box('TotalReadoutTime');">       TotalReadoutTime<input type="text" id="TotalReadoutTime"><br>
+      <input type="checkbox" id="AccelFactPECheckbox" onclick="check_box('AccelFactPE');">       AccelFactPE<input type="text" id="AccelFactPE"><br>
+      <input type="checkbox" id="TrueEchoSpacingCheckbox" onclick="check_box('TrueEchoSpacing');">       TrueEchoSpacing<input type="text" id="TrueEchoSpacing"><br>
+      <input type="checkbox" id="PhaseEncodingDirectionCheckbox" onclick="check_box('PhaseEncodingDirection');">       PhaseEncodingDirection<input type="text" id="PhaseEncodingDirection"><br>
+      <input type="checkbox" id="AcquisitionTimeCheckbox" onclick="check_box('AcquisitionTime');">       AcquisitionTime<input type="text" id="AcquisitionTime"><br>
+      <input type="checkbox" id="SliceTimingCheckbox" onclick="check_box('SliceTiming');">       SliceTiming<input type="text" id="SliceTiming"><br>
+      <input type="checkbox" id="ImageOrientationCheckbox" onclick="check_box('ImageOrientation');">       ImageOrientation<input type="text" id="ImageOrientation"><br>
+      <input type="checkbox" id="SliceThicknessCheckbox" onclick="check_box('SliceThickness');">       SliceThickness<input type="text" id="SliceThickness"><br> -->
+
+      <!-- <input type="text" id="FName" placeholder="File Name">
+      <button onclick="getVal();">Create File</button> -->
+    </form>
+    </div>
+  </body>
+</html>
