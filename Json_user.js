@@ -17,6 +17,9 @@ function download(filename, text) {
 
 
 function getVal(){
+  fileName = prompt("Chose a name for the file.");
+
+  if (fileName != null) {
   var vals = [];
   var val, valN;
   text = '{\n';
@@ -50,7 +53,6 @@ function getVal(){
   text = text.substring(0, text.length - 2);
   text = text + '\n}'
 
-  fileName = prompt("Chose a name for the file.");
   // var fileName = document.getElementById('FName').value;
    if (fileName) {
     fileName += ".json";
@@ -59,9 +61,11 @@ function getVal(){
     download("file.json", text);
   }
 }
+}
 
 //reads json configuration file
-function handleFileSelect() {
+function handleFileSelect(input) {
+    console.log(input);
     if (window.File && window.FileReader && window.FileList && window.Blob) {
 
     } else {
@@ -69,7 +73,6 @@ function handleFileSelect() {
         return;
     }
 
-    input = document.getElementById('fileInput');
     if (!input) {
       alert("Um, couldn't find the fileinput element.");
    }
@@ -82,23 +85,36 @@ function handleFileSelect() {
    else {
       file = input.files[0];
       fr = new FileReader();
-      fr.onload = updatePage;  // I think this runs the updatePage() function.
+      fr.onload = callingUpdatePage;  // I think this runs the updatePage() function.
       fr.readAsText(file);
    }
 }
 
 
 function pageStart(){
-  document.getElementById("fileInput").addEventListener('change', handleFileSelect);
+  // loads file in url automaticly (if it exists)
+  urlParams = getUrlParams(window.location.href);
+  if (urlParams["file"]) {
+    var preparedDateFile = String(urlParams["file"]);
+    console.log("PDF: " + preparedDateFile);
+    text = readTextFile(preparedDateFile);
+    console.log("text: " + text);
+    //TODO call updatePage with file text (above)
+    updatePage(text);
+  }
+
+  function theClockFunction(){handleFileSelect(document.getElementById('fileInput'))}
+  // This function just lets handleFileSelect run in the comand below
+  document.getElementById("fileInput").addEventListener('change', theClockFunction);
 }
 
 
-function updatePage() {
+function updatePage(result) {
   //reads json configuration file
   var Ukey = "/u/";
   var Dkey = "D_";
   var key_list = [];
-  var Jfile = JSON.parse(fr.result);
+  var Jfile = JSON.parse(result);
 
   //puts Json keys into a list
   for (var key in Jfile) {
@@ -158,17 +174,42 @@ function updatePage() {
  }
 }
 
+// another workaround function for handleFileSelect
+function callingUpdatePage(){
+  updatePage(fr.result);
+}
 
 // this reads variables from the url.
-// function getUrlParams(url) {
-//   var params = {};
-//   var parser = document.createElement('a');
-//   parser.href = url;
-//   var query = parser.search.substring(1);
-//   var vars = query.split('&');
-//   for (var i = 0; i < vars.length; i++) {
-//     var pair = vars[i].split('=');
-//     params[pair[0]] = decodeURIComponent(pair[1]);
-//   }
-//   return params;
-// };
+function getUrlParams(url) {
+  var params = {};
+  var parser = document.createElement('a');
+  parser.href = url;
+  var query = parser.search.substring(1);
+  var vars = query.split('&');
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split('=');
+    params[pair[0]] = decodeURIComponent(pair[1]);
+  }
+  return params;
+};
+
+
+function readTextFile(file) {
+    var allText;
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                allText = rawFile.responseText;
+                console.log("text in function: " + allText);
+                // document.getElementById("testing").innerText = allText;
+            }
+        }
+    }
+    rawFile.send(null);
+    return allText;
+}
