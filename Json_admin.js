@@ -20,6 +20,7 @@ function download(filename, text) {
 
 // Creates elements in elements_list
 function pageStart() {
+  document.getElementById("fileInput").addEventListener('change', handleFileSelect);
 
   for (var key in elements_list) {
     var item = elements_list[key];
@@ -44,106 +45,86 @@ function pageStart() {
     form.appendChild(quest);
     form.appendChild(br);
  }
+ var div = document.getElementById("QBlock");
  var button = document.createElement("BUTTON");
  var quest = document.createElement("INPUT");
- var form = document.getElementById("theForm");
 
  // quest.setAttribute('id', "FName");
  // quest.setAttribute('placeholder', "File Name");
  button.setAttribute('onClick', "getVal();");
  button.setAttribute('id', "getFileBTN");
  // form.appendChild(quest);
- form.appendChild(button);
+ div.appendChild(button);
  document.getElementById("getFileBTN").innerHTML = "Create File";
 
 }
 
 
 function getVal(){
-  var vals = [];
-  var val, valN;
-  text = '{\n';
+  var fname = prompt("What should the file name be?");
 
-  // records values in elemrnts and creats text
-  for (i in elements_list) {
-    elem = elements_list[i]
-    // records values in elemrnts
-    vals.push(document.getElementById(elem).value);
-    // makes text
-    val = document.getElementById(elem).value;
+  if (fname != null) {
+    var vals = [];
+    var val, valN;
+    text = '{\n';
 
-    if (val != Ukey) {
-      valN = parseFloat(val);
+    // records values in elemrnts and creats text
+    for (i in elements_list) {
+      elem = elements_list[i]
+      // records values in elemrnts
+      vals.push(document.getElementById(elem).value);
+      // makes text
+      val = document.getElementById(elem).value;
 
-      if (val.includes(',')) {
-        // if value is comaseperated values
-        val = '['+ val +']';
-      } else if (!isNaN(valN)) {
-        //if value is a number
-        // pass
-      } else {
-        // if value is a string
-        val = '"'+ val +'"';
+      if (val == Ukey) {
+        //if val in set to unnecessary
+        val = '"'+ Ukey +'"';
+      }else{
+        valN = parseFloat(val);
+
+        if (val.includes(',')) {
+          // if value is comaseperated values
+          val = '['+ val +']';
+        } else if (!isNaN(valN)) {
+          //if value is a number
+          // pass
+        } else {
+          // if value is a string
+          val = '"'+ val +'"';
+        }
       }
-      //set description if there is no id
-      // if ("" == val) {
-      //   try{
-      //     val = "dis:"+ description_list[elem];
-      //     console.log(val);
-      //   }catch(err){
-      //     val = '"'+'"';
-      //   }
-      //   }
+        //set description if there is no id
+        // if ("" == val) {
+        //   try{
+        //     val = "dis:"+ description_list[elem];
+        //     console.log(val);
+        //   }catch(err){
+        //     val = '"'+'"';
+        //   }
+        //   }
+        console.log("val:" + val);
+        console.log(description_list[elem]);
+        //adds values to text
+        text = text + '"'+elem+'"' + ': ' + val + ',\n';
       }
-      console.log("val:" + val);
-      console.log(description_list[elem]);
-      //adds values to text
-      text = text + '"'+elem+'"' + ': ' + val + ',\n';
+
+    for (key in description_list) {
+      var des = description_list[key];
+      key = "D_" + key;
+      text = text + '"'+key+'"' + ': ' + '"'+ des +'"' + ',\n';
     }
 
-  for (key in description_list) {
-    var des = description_list[key];
-    key = "D_" + key;
-    text = text + '"'+key+'"' + ': ' + '"'+ des +'"' + ',\n';
+    text = text.substring(0, text.length - 2);
+    text = text + '\n}';
+
+    // var fname = document.getElementById("FName").value;
+    if (fname) {
+     fname += ".json";
+     download(fname, text);
+    }else{
+     download("file.json", text);
+    }
   }
-
-  text = text.substring(0, text.length - 2);
-  text = text + '\n}';
-
-  var fname = prompt("What should the file name be?");
-  // var fname = document.getElementById("FName").value;
-  if (fname == "") {
-    fname = "file.json"
-  }else{
-    fname = fname + ".json"
-  }
-  //
-  // var fileText = '{\n' +
-  // '"TaskName":' + TaskName + ",\n" +
-  // '"OnsetOfStimulis":' + OnsetOfStimulis + ",\n" +
-  // '"StimulusDuration":' + StimulusDuration + ",\n" +
-  // '"Manufacturer":' + Manufacturer + ",\n" +
-  // '"ManufacturersModelName":' + ManufacturersModelName + ",\n" +
-  // '"EchoTrainLength":' + EchoTrainLength + ",\n" +
-  // '"AcquisitionNumber":' + AcquisitionNumber + ",\n" +
-  // '"MagneticFieldStrength":' + MagneticFieldStrength + ",\n" +
-  // '"FlipAngle":' + FlipAngle + ",\n" +
-  // '"EchoTime":' + EchoTime + ",\n" +
-  // '"RepetitionTime":' + RepetitionTime + ",\n" +
-  // '"PhaseEncodingLines":' + PhaseEncodingLines + ",\n" +
-  // '"BandwidthPerPixelPhaseEncode":' + BandwidthPerPixelPhaseEncode + ",\n" +
-  // '"EffectiveEchoSpacing":' + EffectiveEchoSpacing + ",\n" +
-  // '"TotalReadoutTime":' + TotalReadoutTime + ",\n" +
-  // '"AccelFactPE":' + AccelFactPE + ",\n" +
-  // '"TrueEchoSpacing":' + TrueEchoSpacing + ",\n" +
-  // '"PhaseEncodingDirection":' + PhaseEncodingDirection + ",\n" +
-  // '"AcquisitionTime":' + AcquisitionTime + ",\n" +
-  // '"SliceTiming":' + SliceTiming + ",\n" +
-  // '"ImageOrientation":' + ImageOrientation + ",\n" +
-  // '"SliceThickness":' + SliceThickness + "\n" +
-  // '}';
-
-  download(fname, text);
 }
 
 //reads json configuration file
